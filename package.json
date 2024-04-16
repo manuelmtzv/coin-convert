@@ -11,10 +11,16 @@
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "@pinia/nuxt": "^0.5.1",
+    "axios": "^1.6.8",
     "clsx": "^2.1.0",
     "nuxt": "^3.10.2",
+    "pinia": "^2.1.7",
     "tailwind-merge": "^2.2.2",
     "vue": "^3.4.19",
     "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "nuxt-icon": "^0.6.10"
   }
 }

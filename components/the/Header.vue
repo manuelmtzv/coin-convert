@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
-
 <template>
-  <header class="w-full">
-    <BaseContainer>
-      <h1>Coin Convert</h1>
+  <header class="w-full py-6 border-b">
+    <BaseContainer class="flex items-center justify-between gap-4">
+      <h1 class="text-2xl font-medium">Coin Convert</h1>
+
+      <TheNavigation />
     </BaseContainer>
   </header>
 </template>

@@ -1,7 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const conversioStore = useConversionStore();
+const { result } = storeToRefs(useConversionStore());
+
+await conversioStore.fetchConversion();
+</script>
 
 <template>
   <div>Hello, Coin Convert!</div>
-</template>
 
-<style scoped></style>
+  <p>First result: {{ result }}</p>
+</template>
