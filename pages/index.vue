@@ -1,24 +1,31 @@
-<script setup lang="ts">
-// const { from, to, amount, result, setAmount, fetchConversion } =
-//   useConversion();
-
-// await fetchConversion();
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div>
-    <!-- <div>Hello, Coin Convert!</div>
+  <div class="flex flex-col gap-6">
+    <section class="flex items-center justify-center gap-6 px-14 py-10">
+      <figure>
+        <img src="~/assets/imgs/exchange.png" alt="" class="max-w-40" />
+      </figure>
 
-    <CurrencySelect label="From" v-model="from" :omits="[to]" />
-    <CurrencySelect label="To" v-model="to" :omits="[from]" />
+      <div class="grid gap-6">
+        <h1 class="text-4xl font-bold">Currency Exchange</h1>
 
-    <input
-      :value="amount"
-      type="text"
-      @input="setAmount(($event.target as HTMLInputElement).value)"
-    />
+        <div class="grid gap-2">
+          <p class="text-xl font-light">
+            This is a simple currency exchange application, made with Nuxt 3 and
+            the Frankfurter open-source API to get the latest exchange rates.
+            You can get access to a wide range of currencies and rates published
+            by the European Central Bank.
+          </p>
+          <p class="text-xl font-light">
+            You can also generate some charts to see the historical records of a
+            currency over time.
+          </p>
+        </div>
+      </div>
+    </section>
 
-    <p>First result: {{ result }}</p> -->
+    <hr />
 
     <CurrencyExchangeForm />
   </div>
