@@ -16,7 +16,7 @@ await fetchConversion();
 
 <template>
   <div
-    class="flex flex-col md:flex-row border-2 items-center border-gray-600 p-5 rounded-xl shadow-md max-w-5xl mx-auto gap-1 w-full"
+    class="flex flex-col md:flex-row border-2 items-center border-gray-600 p-5 rounded-xl shadow-md max-w-5xl mx-auto gap-4 w-full"
   >
     <div class="flex flex-col gap-5 flex-1 w-full">
       <h2 class="text-3xl">Consult currency exchange</h2>

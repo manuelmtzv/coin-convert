@@ -6,9 +6,9 @@
 
     <nuxt-link to="https://www.frankfurter.app/" target="_blank">
       <figure
-        class="inline-flex items-center gap-2 px-2 py-1 rounded-lg border-2 border-gray-600 hover:border-gray-800 transition-colors duration-300"
+        class="inline-flex items-center gap-2 px-1 md:px-2 py-1 rounded-lg border-2 border-gray-600 hover:border-gray-800 transition-colors duration-300"
       >
-        Currency API
+        <span class="hidden md:block">Currency API</span>
         <Icon name="uil:server" color="black" size="1.5rem" />
       </figure>
     </nuxt-link>
