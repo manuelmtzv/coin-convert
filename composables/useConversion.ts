@@ -1,12 +1,13 @@
 export const useConversion = () => {
   const conversionStore = useConversionStore();
 
-  const { fetchConversion, setAmount } = conversionStore;
+  const { fetchConversion, setAmount, reverseConversion } = conversionStore;
   const state = storeToRefs(conversionStore);
 
   return {
     ...state,
-    fetchConversion,
     setAmount,
+    reverseConversion,
+    fetchConversion,
   };
 };

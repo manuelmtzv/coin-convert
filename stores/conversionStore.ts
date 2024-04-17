@@ -40,6 +40,12 @@ export const useConversionStore = defineStore("conversionStore", () => {
     result.value = amount.value * conversion.value;
   };
 
+  const reverseConversion = () => {
+    const temp = from.value;
+    from.value = to.value;
+    to.value = temp;
+  };
+
   watch([from, to], fetchConversion);
 
   watch([amount], localConversion, { deep: true });
@@ -48,8 +54,10 @@ export const useConversionStore = defineStore("conversionStore", () => {
     from,
     to,
     amount,
+    conversion,
     result,
     setAmount,
     fetchConversion,
+    reverseConversion,
   };
 });

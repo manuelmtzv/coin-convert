@@ -2,7 +2,12 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@pinia/nuxt"],
-  plugins: [{ src: "~/plugins/VueDebounce.js" }],
+  plugins: [
+    { src: "~/plugins/VueDebounce.js" },
+    {
+      src: "~/plugins/FloatingVue.js",
+    },
+  ],
   css: ["~/assets/css/main.css"],
   runtimeConfig: {
     currencyApiBase: process.env.CURRENCY_API_BASE,

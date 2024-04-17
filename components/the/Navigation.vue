@@ -1,11 +1,7 @@
 <template>
   <nav class="flex items-center gap-4">
-    <nuxt-link to="/">
-      <Icon name="uil:home-alt" color="black" size="1.5rem" />
-    </nuxt-link>
-
-    <nuxt-link to="/about">
-      <Icon name="uil:info-circle" color="black" size="1.5rem" />
+    <nuxt-link to="https://github.com/manuelmtzv/coin-convert" target="_blank">
+      <Icon name="uil:github" color="black" size="1.5rem" />
     </nuxt-link>
 
     <nuxt-link to="https://www.frankfurter.app/" target="_blank">

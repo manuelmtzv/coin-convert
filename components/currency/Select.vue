@@ -28,10 +28,10 @@ await fetchCurrencies();
 </script>
 
 <template>
-  <label for="currency">
+  <label class="flex flex-col gap-2 w-full" for="currency">
     {{ label }}
-    {{ modelValue }}
-    <select
+
+    <!-- <select
       id="currency"
       :value="props.modelValue"
       @change="
@@ -46,6 +46,14 @@ await fetchCurrencies();
       >
         {{ currency }}
       </option>
-    </select>
+    </select> -->
+
+    <BaseSelect
+      class="w-full"
+      :model-value="modelValue"
+      @update:model-value="(event) => emit('update:modelValue', event)"
+      :options="displayCurrencies"
+      :default="props.default"
+    />
   </label>
 </template>
