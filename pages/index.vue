@@ -30,5 +30,9 @@
     <hr />
 
     <CurrencyExchangeForm />
+
+    <hr />
+
+    <CurrencyHistoricalChart />
   </div>
 </template>
