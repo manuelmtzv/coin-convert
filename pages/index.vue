@@ -1,18 +1,23 @@
 <script setup lang="ts">
-const { from, to, amount, result, setAmount } = useConversion();
+const { from, to, amount, result, setAmount, fetchConversion } =
+  useConversion();
+
+await fetchConversion();
 </script>
 
 <template>
-  <div>Hello, Coin Convert!</div>
+  <div>
+    <div>Hello, Coin Convert!</div>
 
-  <CurrencySelect label="From" v-model="from" />
-  <CurrencySelect label="To" v-model="to" />
+    <CurrencySelect label="From" v-model="from" :omits="[to]" />
+    <CurrencySelect label="To" v-model="to" :omits="[from]" />
 
-  <input
-    :value="amount"
-    type="text"
-    @input="setAmount(($event.target as HTMLInputElement).value)"
-  />
+    <input
+      :value="amount"
+      type="text"
+      @input="setAmount(($event.target as HTMLInputElement).value)"
+    />
 
-  <p>First result: {{ result }}</p>
+    <p>First result: {{ result }}</p>
+  </div>
 </template>

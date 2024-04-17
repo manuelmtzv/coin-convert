@@ -20,7 +20,7 @@ export const useConversionStore = defineStore("conversionStore", () => {
   }, 50);
 
   const fetchConversion = async () => {
-    const response = await useFetch<CurrencyConversionResponse>(
+    const data = await $fetch<CurrencyConversionResponse>(
       "https://api.frankfurter.app/latest",
       {
         params: {
@@ -29,7 +29,6 @@ export const useConversionStore = defineStore("conversionStore", () => {
         },
       }
     );
-    const data = response.data.value;
 
     if (data) {
       conversion.value = data.rates[to.value] * amount.value;
@@ -41,7 +40,7 @@ export const useConversionStore = defineStore("conversionStore", () => {
     result.value = amount.value * conversion.value;
   };
 
-  watch([from, to], fetchConversion, { immediate: true });
+  watch([from, to], fetchConversion);
 
   watch([amount], localConversion, { deep: true });
 

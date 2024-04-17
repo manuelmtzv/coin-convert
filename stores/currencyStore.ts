@@ -15,8 +15,13 @@ export const useCurrencyStore = defineStore("currenciesStore", () => {
     }
   };
 
+  const getCurrencyName = (currency: string) => {
+    return currenciesObject.value[currency];
+  };
+
   return {
     currencies,
     fetchCurrencies,
+    getCurrencyName,
   };
 });

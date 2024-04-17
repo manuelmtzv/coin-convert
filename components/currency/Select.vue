@@ -2,7 +2,8 @@
 interface CurrencySelectProps {
   modelValue: string;
   label: string;
-  omit?: string[];
+  default?: string;
+  omits?: string[];
 }
 
 interface CurrencySelectEmits {
@@ -11,8 +12,17 @@ interface CurrencySelectEmits {
 
 const { currencies, fetchCurrencies } = useCurrency();
 
-const props = defineProps<CurrencySelectProps>();
+const props = withDefaults(defineProps<CurrencySelectProps>(), {
+  default: "USD",
+  omits: () => [],
+});
 const emit = defineEmits<CurrencySelectEmits>();
+
+const displayCurrencies = computed(() => {
+  return currencies.value.filter(
+    (currency) => !props.omits?.includes(currency)
+  );
+});
 
 await fetchCurrencies();
 </script>
@@ -20,6 +30,7 @@ await fetchCurrencies();
 <template>
   <label for="currency">
     {{ label }}
+    {{ modelValue }}
     <select
       id="currency"
       :value="props.modelValue"
@@ -27,7 +38,12 @@ await fetchCurrencies();
         emit('update:modelValue', ($event.target as HTMLSelectElement).value)
       "
     >
-      <option v-for="currency in currencies" :key="currency" :value="currency">
+      <option
+        v-for="currency in displayCurrencies"
+        :key="currency"
+        :value="currency"
+        :selected="currency === props.modelValue"
+      >
         {{ currency }}
       </option>
     </select>

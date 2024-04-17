@@ -7,4 +7,10 @@ export default defineNuxtConfig({
   runtimeConfig: {
     currencyApiBase: process.env.CURRENCY_API_BASE,
   },
+  app: {
+    pageTransition: {
+      name: "page",
+      mode: "out-in",
+    },
+  },
 });
