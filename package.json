@@ -16,6 +16,7 @@
     "@vue/compiler-sfc": "^3.4.23",
     "@vuepic/vue-datepicker": "^8.4.0",
     "@vueuse/core": "^10.9.0",
+    "@vueuse/math": "^10.9.0",
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
     "clsx": "^2.1.0",

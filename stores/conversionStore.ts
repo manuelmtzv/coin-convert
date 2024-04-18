@@ -1,5 +1,6 @@
 import type { CurrencyConversionResponse } from "~/interfaces/CurrencyConversionResponse";
-import { debounce } from "vue-debounce";
+import { useClamp } from "@vueuse/math";
+import { MIN_AMOUNT, MAX_AMOUNT } from "~/config/currencyDefaults";
 
 export const useConversionStore = defineStore("conversionStore", () => {
   const from = ref("USD");
@@ -9,16 +10,26 @@ export const useConversionStore = defineStore("conversionStore", () => {
   const result = ref(0);
   const loadingConversion = ref(false);
 
-  const setAmount = debounce((value: number | string) => {
+  const amountWarning = ref<string | undefined>(undefined);
+
+  const setAmount = (value: number | string) => {
     if (!value) value = 0;
 
     if (typeof value === "string") {
-      const cleanValue = value.replaceAll(/\D/g, "");
-      value = parseFloat(cleanValue);
+      const parsed = Number(value);
+
+      if (!isNaN(parsed)) {
+        value = parsed;
+        amountWarning.value = undefined;
+      } else {
+        amountWarning.value = "Please make sure to enter a valid amount.";
+        return;
+      }
     }
 
-    amount.value = value;
-  }, 50);
+    amount.value =
+      value != 0 ? useClamp(value, MIN_AMOUNT, Number(MAX_AMOUNT)).value : 0;
+  };
 
   const fetchConversion = async () => {
     loadingConversion.value = true;
@@ -59,6 +70,7 @@ export const useConversionStore = defineStore("conversionStore", () => {
     from,
     to,
     amount,
+    amountWarning,
     conversion,
     result,
     setAmount,
