@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const runtimeConfig = useRuntimeConfig();
+import "@vuepic/vue-datepicker/dist/main.css";
+import moment from "moment";
+
+moment.locale();
 </script>
 
 <template>

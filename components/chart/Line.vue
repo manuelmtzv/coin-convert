@@ -32,9 +32,9 @@ ChartJs.register(
   Legend
 );
 
-defineProps<ChartLineProps>();
+const props = defineProps<ChartLineProps>();
 </script>
 
 <template>
-  <Line :data="data" :options="options" />
+  <Line :data="data" :options="options" update-mode="resize" />
 </template>
