@@ -7,6 +7,7 @@ export const useConversionStore = defineStore("conversionStore", () => {
   const amount = ref(1);
   const conversion = ref(0);
   const result = ref(0);
+  const loadingConversion = ref(false);
 
   const setAmount = debounce((value: number | string) => {
     if (!value) value = 0;
@@ -20,6 +21,8 @@ export const useConversionStore = defineStore("conversionStore", () => {
   }, 50);
 
   const fetchConversion = async () => {
+    loadingConversion.value = true;
+
     const data = await $fetch<CurrencyConversionResponse>(
       "https://api.frankfurter.app/latest",
       {
@@ -30,8 +33,10 @@ export const useConversionStore = defineStore("conversionStore", () => {
       }
     );
 
+    loadingConversion.value = false;
+
     if (data) {
-      conversion.value = data.rates[to.value] * amount.value;
+      conversion.value = +data.rates[to.value] * amount.value;
       localConversion();
     }
   };
@@ -59,5 +64,6 @@ export const useConversionStore = defineStore("conversionStore", () => {
     setAmount,
     fetchConversion,
     reverseConversion,
+    loadingConversion,
   };
 });

@@ -6,26 +6,31 @@ export const useHistoricalCurrencyStore = defineStore(
   () => {
     const historicalDates = ref<string[]>([]);
     const historicalRates = ref<number[]>([]);
-    const startAt = ref("1999-01-04");
+    // const startAt = ref(moment().subtract(3, "month").format("YYYY-MM-DD"));
+    const startAt = ref(moment().subtract(3, "year").format("YYYY-MM-DD"));
     const endAt = ref(moment().format("YYYY-MM-DD"));
 
     const conversionStore = useConversionStore();
 
     const fetchHistoricalCurrency = async () => {
-      const response = await useFetch<HistoricalCurrencyResponse>(
+      const data = await $fetch<HistoricalCurrencyResponse>(
         `https://api.frankfurter.app/${startAt.value}..${endAt.value}?from=${conversionStore.from}&to=${conversionStore.to}`
       );
 
-      const data = response.data.value;
-
       if (data) {
-        historicalDates.value = Object.keys(data.rates);
-
-        historicalRates.value = Object.values(data.rates).map((rate) => {
-          return rate[conversionStore.to];
-        });
+        setHistoricalRecords(data);
       }
     };
+
+    const setHistoricalRecords = (response: HistoricalCurrencyResponse) => {
+      historicalDates.value = Object.keys(response.rates);
+
+      historicalRates.value = Object.values(response.rates).map((rate) => {
+        return rate[conversionStore.to];
+      });
+    };
+
+    watch([startAt, endAt], fetchHistoricalCurrency);
 
     return {
       startAt,

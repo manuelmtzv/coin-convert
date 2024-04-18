@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import "@vuepic/vue-datepicker/dist/main.css";
+import "floating-vue/dist/style.css";
 import moment from "moment";
 
 moment.locale();
