@@ -56,6 +56,6 @@ await fetchHistoricalCurrency();
 
 <style scoped>
 .chart-line {
-  @apply p-2 md:p-6 border-2 border-gray-500 rounded-xl w-full;
+  @apply p-2 md:p-6 border-2 border-gray-500 rounded-xl w-full shadow-md;
 }
 </style>

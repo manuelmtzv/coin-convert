@@ -3,7 +3,7 @@ import VueDatePicker from "@vuepic/vue-datepicker";
 import moment from "moment";
 import { MIN_DATE, MAX_YEARS } from "~/config/currencyDefaults";
 
-const { startAt, endAt, resetDates } = useHistoricalCurrency();
+const { startAt, endAt, resetDates, historicalStats } = useHistoricalCurrency();
 
 type DateTarget = "startAt" | "endAt";
 
@@ -34,7 +34,7 @@ const limitRanges = computed(() => ({
 </script>
 
 <template>
-  <div class="flex items-end gap-4">
+  <div class="flex items-end flex-col md:flex-row gap-4">
     <div class="date-input">
       <p>Start Date:</p>
 
@@ -54,31 +54,33 @@ const limitRanges = computed(() => ({
       />
     </div>
 
-    <div class="date-input">
-      <p>End Date:</p>
+    <div class="flex items-end gap-4 w-full">
+      <div class="date-input">
+        <p>End Date:</p>
 
-      <VueDatePicker
-        :model-value="endAt"
-        @update:model-value="(date?: Date) => updateDate('endAt', date)"
-        auto-apply
-        :min-date="limitRanges.end.min"
-        :max-date="limitRanges.end.max"
-        :start-date="endAt ?? limitRanges.end.max"
-        format="yyyy-MM-dd"
-        :enable-time-picker="false"
-        timezone="UTC"
-        prevent-min-max-navigation
-        focus-start-date
-      />
+        <VueDatePicker
+          :model-value="endAt"
+          @update:model-value="(date?: Date) => updateDate('endAt', date)"
+          auto-apply
+          :min-date="limitRanges.end.min"
+          :max-date="limitRanges.end.max"
+          :start-date="endAt ?? limitRanges.end.max"
+          format="yyyy-MM-dd"
+          :enable-time-picker="false"
+          timezone="UTC"
+          prevent-min-max-navigation
+          focus-start-date
+        />
+      </div>
+
+      <BaseButton
+        class="py-1.5 px-2.5 bg-slate-800"
+        v-tooltip="'Reiniciar fechas'"
+        @click="resetDates"
+      >
+        <Icon name="uil:redo" class="text-white" />
+      </BaseButton>
     </div>
-
-    <BaseButton
-      class="py-1.5 px-2.5 bg-slate-800"
-      v-tooltip="'Reiniciar fechas'"
-      @click="resetDates"
-    >
-      <Icon name="uil:redo" class="text-white" />
-    </BaseButton>
   </div>
 </template>
 
@@ -88,6 +90,6 @@ const limitRanges = computed(() => ({
 }
 
 .date-input p {
-  @apply text-sm font-light;
+  @apply text-sm font-semibold;
 }
 </style>

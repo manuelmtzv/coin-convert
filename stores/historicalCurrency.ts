@@ -51,6 +51,19 @@ export const useHistoricalCurrencyStore = defineStore(
       endAt.value = moment().format("YYYY-MM-DD");
     };
 
+    const historicalStats = computed(() => {
+      if (!historicalRates.value.length) return undefined;
+
+      const rates = [...historicalRates.value];
+
+      return {
+        min: Math.min(...rates),
+        max: Math.max(...rates),
+        avg: rates.reduce((a, b) => a + b, 0) / rates.length,
+        median: rates.sort((a, b) => a - b)[Math.floor(rates.length / 2)],
+      };
+    });
+
     const yearsBetween = computed(() => {
       return moment(endAt.value).diff(moment(startAt.value), "years");
     });
@@ -62,6 +75,7 @@ export const useHistoricalCurrencyStore = defineStore(
       endAt,
       historicalDates,
       historicalRates,
+      historicalStats,
       fetchHistoricalCurrency,
       resetDates,
     };
