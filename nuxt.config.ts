@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "floating-vue/nuxt",
   ],
-  plugins: [{ src: "~/plugins/VueDebounce.js" }],
   css: ["~/assets/css/main.css"],
   runtimeConfig: {
     currencyApiBase: process.env.CURRENCY_API_BASE,
