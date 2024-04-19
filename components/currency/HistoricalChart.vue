@@ -23,7 +23,7 @@ const chartData = computed(() => ({
     {
       label: `Rates along ${startAt.value} to ${endAt.value}`,
       data: historicalRates.value,
-      backgroundColor: "#803D3B",
+      backgroundColor: "#141E46",
     },
   ],
 }));
@@ -33,17 +33,6 @@ const chartOptions = computed(() => ({
   maintainAspectRatio: true,
   indexAxis: width.value > 1000 ? "x" : "y",
   aspectRatio: width.value > 1000 ? 2 : 0.6,
-  plugins: {
-    title: {
-      color: "#000",
-      display: true,
-      text: `Historical Currency Rates Conversion from ${from.value} to ${to.value}`,
-      font: {
-        size: 20,
-        family: "Montserrat",
-      },
-    },
-  },
 }));
 
 await fetchHistoricalCurrency();
@@ -58,7 +47,7 @@ await fetchHistoricalCurrency();
   />
 
   <ChartLine
-    v-if="width > 1000"
+    v-else
     class="chart-line"
     :data="(chartData as ChartLineData)"
     :options="(chartOptions as ChartLineOptions)"

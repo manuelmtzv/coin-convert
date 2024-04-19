@@ -6,15 +6,14 @@ export const useHistoricalCurrencyStore = defineStore(
   () => {
     const historicalDates = ref<string[]>([]);
     const historicalRates = ref<number[]>([]);
-    // const startAt = ref(moment().subtract(3, "month").format("YYYY-MM-DD"));
     const startAt = ref(moment().subtract(3, "year").format("YYYY-MM-DD"));
     const endAt = ref(moment().format("YYYY-MM-DD"));
 
-    const conversionStore = useConversionStore();
+    const { from, to } = useConversion();
 
     const fetchHistoricalCurrency = async () => {
       const data = await $fetch<HistoricalCurrencyResponse>(
-        `https://api.frankfurter.app/${startAt.value}..${endAt.value}?from=${conversionStore.from}&to=${conversionStore.to}`
+        `https://api.frankfurter.app/${startAt.value}..${endAt.value}?from=${from.value}&to=${to.value}`
       );
 
       if (data) {
@@ -23,14 +22,31 @@ export const useHistoricalCurrencyStore = defineStore(
     };
 
     const setHistoricalRecords = (response: HistoricalCurrencyResponse) => {
-      historicalDates.value = Object.keys(response.rates);
-
-      historicalRates.value = Object.values(response.rates).map((rate) => {
-        return rate[conversionStore.to];
+      const { rates } = response;
+      let dates = Object.keys(rates);
+      let values = Object.values(rates).map((rate) => {
+        return rate[to.value];
       });
+
+      if (yearsBetween.value >= 3) {
+        const { datesCollection, ratesCollection } = reduceHistorcialCurrency(
+          dates,
+          values
+        );
+
+        dates = datesCollection;
+        values = ratesCollection;
+      }
+
+      historicalDates.value = dates;
+      historicalRates.value = values;
     };
 
-    watch([startAt, endAt], fetchHistoricalCurrency);
+    const yearsBetween = computed(() => {
+      return moment(endAt.value).diff(moment(startAt.value), "years");
+    });
+
+    watch([from, to, startAt, endAt], fetchHistoricalCurrency);
 
     return {
       startAt,
