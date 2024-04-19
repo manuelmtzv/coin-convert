@@ -47,7 +47,7 @@ export const useConversionStore = defineStore("conversionStore", () => {
     loadingConversion.value = false;
 
     if (data) {
-      conversion.value = +data.rates[to.value] * amount.value;
+      conversion.value = +data.rates[to.value];
       localConversion();
     }
   };
