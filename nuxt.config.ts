@@ -25,4 +25,11 @@ export default defineNuxtConfig({
       mode: "out-in",
     },
   },
+  nitro: {
+    esbuild: {
+      options: {
+        target: "esnext",
+      },
+    },
+  },
 });
