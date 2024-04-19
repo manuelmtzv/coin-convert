@@ -31,23 +31,6 @@ await fetchCurrencies();
   <label class="flex flex-col gap-2 w-full" for="currency">
     {{ label }}
 
-    <!-- <select
-      id="currency"
-      :value="props.modelValue"
-      @change="
-        emit('update:modelValue', ($event.target as HTMLSelectElement).value)
-      "
-    >
-      <option
-        v-for="currency in displayCurrencies"
-        :key="currency"
-        :value="currency"
-        :selected="currency === props.modelValue"
-      >
-        {{ currency }}
-      </option>
-    </select> -->
-
     <BaseSelect
       class="w-full"
       :model-value="modelValue"

@@ -36,7 +36,7 @@ provideUseId(() => useId());
     >
       <div class="relative mt-1">
         <ListboxButton
-          class="relative w-full cursor-default rounded-xl bg-white py-2 pl-3 pr-10 text-left text-lg sm:text-sm border border-gray-400"
+          class="relative w-full cursor-default rounded-xl bg-white py-2 pl-3 pr-10 text-left text-base md:text-lg sm:text-sm border border-gray-400"
         >
           <span class="block truncate">{{ modelValue }}</span>
           <span
