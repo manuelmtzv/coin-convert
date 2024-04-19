@@ -13,15 +13,15 @@ const {
   fetchHistoricalCurrency,
 } = useHistoricalCurrency();
 
-const { from, to } = useConversion();
-
 const { width } = useWindowSize();
 
 const chartData = computed(() => ({
   labels: historicalDates.value,
   datasets: [
     {
-      label: `Rates along ${startAt.value} to ${endAt.value}`,
+      label: endAt.value
+        ? `Records from ${startAt.value} to ${endAt.value}`
+        : `Records since ${startAt.value}`,
       data: historicalRates.value,
       backgroundColor: "#141E46",
     },

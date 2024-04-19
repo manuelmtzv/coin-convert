@@ -6,14 +6,18 @@ export const useHistoricalCurrencyStore = defineStore(
   () => {
     const historicalDates = ref<string[]>([]);
     const historicalRates = ref<number[]>([]);
-    const startAt = ref(moment().subtract(3, "year").format("YYYY-MM-DD"));
-    const endAt = ref(moment().format("YYYY-MM-DD"));
+    const startAt = ref<string>(
+      moment().subtract(3, "month").format("YYYY-MM-DD")
+    );
+    const endAt = ref<string | undefined>(moment().format("YYYY-MM-DD"));
 
     const { from, to } = useConversion();
 
     const fetchHistoricalCurrency = async () => {
       const data = await $fetch<HistoricalCurrencyResponse>(
-        `https://api.frankfurter.app/${startAt.value}..${endAt.value}?from=${from.value}&to=${to.value}`
+        `https://api.frankfurter.app/${startAt.value}..${
+          endAt.value ?? ""
+        }?from=${from.value}&to=${to.value}`
       );
 
       if (data) {
@@ -42,6 +46,11 @@ export const useHistoricalCurrencyStore = defineStore(
       historicalRates.value = values;
     };
 
+    const resetDates = () => {
+      startAt.value = moment().subtract(3, "month").format("YYYY-MM-DD");
+      endAt.value = moment().format("YYYY-MM-DD");
+    };
+
     const yearsBetween = computed(() => {
       return moment(endAt.value).diff(moment(startAt.value), "years");
     });
@@ -54,6 +63,7 @@ export const useHistoricalCurrencyStore = defineStore(
       historicalDates,
       historicalRates,
       fetchHistoricalCurrency,
+      resetDates,
     };
   }
 );
